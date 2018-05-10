@@ -1,0 +1,13 @@
+#main-container{
+    position: relative;
+}
+
+#image-area{
+    position: absolute;
+    z-index: 1;
+}
+
+#drawing-area{
+    position: absolute;
+    z-index: 2;
+}
