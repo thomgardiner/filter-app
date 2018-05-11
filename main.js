@@ -9,6 +9,11 @@ let layer1 = null;
 let layer2 = null;
 let myLayeredCanvas = null;
 
+let nosePos = null;
+let eyeBrowL = null;
+let eyeBrowR = null;
+let bottomLip = null;
+let face = null;
 let posx = 0;
 let posy = 0;
 
@@ -31,6 +36,11 @@ const call = function(){
         response = JSON.parse(response);
         height = response.media_info.height;
         width = response.media_info.width;
+        face = response.frames[0].people[0].face;
+        nosePos = response.frames[0].people[0].landmarks[14];
+        eyeBrowL = response.frames[0].people[0].landmarks[2]; //lInnerRight
+        eyeBrowR = response.frames[0].people[0].landmarks[5]; //rInnerLeft
+        bottomLip = response.frames[0].people[0].landmarks[38];//lowerLipBottomCenter
         console.log(response);
         console.log(response.frames[0].people[0]);
         console.log("the image size is " + height + " " + width);
@@ -57,13 +67,6 @@ const render = function(){
           render: function(canvas, ctx){
               ctx.drawImage(canvasImage, 0, 0, width, height);
           }
-    }).addLayer( 
-        { id: 'drawing',
-          show: true,
-          render: function(canvas, ctx){
-              ctx.fillStyle = "#E5E059";
-              ctx.fillRect(0, 0, 100, 100);
-          }
     })
     myLayeredCanvas.render();
 }
@@ -82,27 +85,51 @@ const draw = function(){
     ctx.drawImage(canvasImage, 0, 0, width, height);
 }
 
-const newPos = function(){
-    posx=+100;
-    posy=+100;
-}
-
 const drawR = function(){
     let canvas = document.getElementById('drawing-area');
     let ctx2 = canvas.getContext('2d');
     ctx2.strokeRect(posx,posy,100,100);
 }
 
-const reDrawRec = function(){
-    myLayeredCanvas.removeLayer("drawing");
+const drawMustache = function(){
+    myLayeredCanvas.removeLayer("mustache");
     myLayeredCanvas.addLayer( 
-        { id: 'drawing',
+        { id: 'mustache',
           render: function(canvas, ctx){
-              ctx.fillRect(480, 292, 100, 25);
+              ctx.fillStyle = "#E5E059";
+              ctx.fillRect(nosePos.noseTipBottom.x-50, nosePos.noseTipBottom.y, 100, 15);
           }
     })
     myLayeredCanvas.render();
 }
+
+const drawEyeBrows = function(){
+    myLayeredCanvas.removeLayer("eyebrows");
+    myLayeredCanvas.addLayer( 
+        { id: 'eyebrows',
+          render: function(canvas, ctx){
+              ctx.fillStyle = "#E5E059";
+              ctx.fillRect(eyeBrowL.leftEyeBrowInnerRight.x-20, eyeBrowL.leftEyeBrowInnerRight.y-10, 30, 20);
+              ctx.fillRect(eyeBrowR.rightEyeBrowInnerLeft.x, eyeBrowR.rightEyeBrowInnerLeft.y-10, 30, 20);
+          }
+    })
+    myLayeredCanvas.render();
+}
+
+const drawBeard = function(){
+    myLayeredCanvas.removeLayer("beard");
+    myLayeredCanvas.addLayer( 
+        { id: 'beard',
+          render: function(canvas, ctx){
+              ctx.fillStyle = "#E5E059";
+              ctx.fillRect(bottomLip.lowerLipBottomCenter.x-15, bottomLip.lowerLipBottomCenter.y+20, 40, 30);
+          }
+    })
+    myLayeredCanvas.render();
+}
+
+
+
 
 $(document).ready( function() {
     $( 'input' ).change( function() {
