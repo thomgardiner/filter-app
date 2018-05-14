@@ -7,14 +7,77 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
    <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
-   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   <link href="https://fonts.googleapis.com/css?family=Gamja+Flower|Gloria+Hallelujah|Shadows+Into+Light" rel="stylesheet">
+
+   <script src="layeredCanvas.js"></script>
    <script src="main.js"></script>
 </head>
    
-</head>
+
 <body>
-   
+        <div class="jumbotron">
+                <h1 class="display-3">Photo Filter App</h1>
+                <p class="lead">This facial-recognition app will be able to recognize facial structures to compare photos as well as recognizing emotion.</p>
+                <hr class="my-4">
+                <p>Based on the emotion detected, a user's spotify playlist will play an appropriate song.  There will also be a feature to alter photos as well.</p> 
+                <!-- may or may not have spotify feature -->
+              </div>
+              <div class="container" id="main-container">
+                <div class = "row">
+                  <div class = "col-md-6 offset-md-6">
+                      <form class="form-inline">
+                          <div class="form-group mb-2">
+                            <label for="staticURL" class="sr-only">Type in an image URL</label>
+                            <input type="text" readonly class="form-control-plaintext" id="staticURL" >
+                          </div>
+                          <div class="form-group mx-sm-3 mb-2">
+                            <label for="inputURL" class="sr-only"></label>
+                            <input type="imageURL" class="form-control" id="inputURL" placeholder="jpg png image URL">
+                          </div>
+                          <button type="submit" class="btn btn-info mb-2">Upload Image</button>
+                        </form>
+                  </div>
+                </div>
+                <div class = "photo-container">
+
+                </div>
+                <div class ="row">
+                  <div class = "col md-3 offset-md-3">
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-info">Choose A Theme</button>
+                          <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" id = "sometheme" href="#">Some Theme</a>
+                            <a class="dropdown-item" id = "sometheme" href="#">Some Theme</a>
+                            <a class="dropdown-item" id = "sometheme" href="#">Some Theme</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" id = "randomTheme" href="#">Random Theme</a>
+                          </div>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info">Choose A Color Filter</button>
+                            <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" id = "blackWhite" href="#">Black and White</a>
+                              <a class="dropdown-item" id = "sepia" href="#">Sepia</a>
+                              <a class="dropdown-item" id = "normal" href="#">Normal</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" id = "randomColor" href="#">Random Color</a>
+                            </div>
+                          </div>
+                      <div class="btn-group" role="group" aria-label="image-buttons">
+                          <button type="button" class="btn btn-info">Previous</button>
+                          <button type = "button" class = "btn btn-info">Next</button>
+                        </div>
+                  </div>
+                </div>
+              </div>
 </body>
 </html>
