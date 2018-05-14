@@ -1,9 +1,24 @@
 let image  = "http://i0.kym-cdn.com/photos/images/original/000/855/203/b60.png";
+let image2 = "https://media.npr.org/assets/img/2014/10/30/ts_photo_pr0500_0878_hirescrop-copy-97a9f606ce59a8f05c0ab40eda3ce85726c00ab2-s900-c85.jpg";
+let image3 = "https://www.thewrap.com/wp-content/uploads/2017/09/GeorgeClooney1.jpg";
+let image4 = "https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/24774761_1724922097558404_117716619849696876_n.jpg";
+let image5= "http://news.mit.edu/sites/mit.edu.newsoffice/files/styles/news_article_image_top_slideshow/public/images/2018/MIT-Schmidt-Fellow_0.jpg";
 let height = 0;
 let width = 0;
 
+
+let hatBank = [{name: "tophat",
+               src: "hat.png"}]
+let eyebrowBank = [{name: "brows",
+                    src: "eyebrows.png"} ];
+let moustacheBank = [{name: "pencil-stache",
+                      src: "moustache.png"}];
+let beardBank = [{name: "goatee",
+                  src: "beard.png"}];
+let userImage = "";
+
 let canvasImage = new Image();
-canvasImage.src = image;
+canvasImage.src = image3;
 
 let moustacheImage = new Image();
 moustacheImage.src = "moustache.png";
@@ -14,17 +29,24 @@ beardImage.src = "beard.png";
 let hatImage = new Image();
 hatImage.src = "hat.png";
 
+let glassesImage = new Image();
+glassesImage.src = "glasses.png";
+
 let layer1 = null;
 let layer2 = null;
 let myLayeredCanvas = null;
 
 let nosePos = null;
+let noseTipTop = null;
+let noseBridge = null;
 let eyeBrowL = null;
 let eyeBrowR = null;
 let bottomLip = null;
 let face = null;
 let posx = 0;
 let posy = 0;
+
+
 
 const call = function(){
 
@@ -34,7 +56,7 @@ const call = function(){
         "app_key"         : "205f9b7807db5aa99dfb98a98fb886aa"
     };
 
-    var url = "https://api.kairos.com/v2/media?source=" + image + "&landmarks=1";
+    var url = "https://api.kairos.com/v2/media?source=" + image3 + "&landmarks=1";
     // make request
     $.ajax(url, {
         headers  : headers,
@@ -50,6 +72,9 @@ const call = function(){
         eyeBrowL = response.frames[0].people[0].landmarks[2]; //lInnerRight
         eyeBrowR = response.frames[0].people[0].landmarks[5]; //rInnerLeft
         bottomLip = response.frames[0].people[0].landmarks[38];//lowerLipBottomCenter
+        noseTipTop = response.frames[0].people[0].landmarks[11];//noseTipTop
+        noseBetweenEyes = response.frames[0].people[0].landmarks[8];//noseBetweenEyes;
+        
         console.log(response);
         console.log(response.frames[0].people[0]);
         console.log("the image size is " + height + " " + width);
@@ -87,11 +112,44 @@ const drawLayer = function(){
     canvas.attr("width", width);
     $(".container").append(canvas);
 }
+
+const removeCanvas = function(){
+    $("#image-area").remove();
+}
  
 const draw = function(){
     let canvas = document.getElementById('image-area');
     let ctx = canvas.getContext('2d');
     ctx.drawImage(canvasImage, 0, 0, width, height);
+}
+
+const grayScale = function(){
+    let canvas = document.getElementById('image-area');
+    let ctx = canvas.getContext('2d');
+    ctx.filter = 'grayscale(100%)';
+    myLayeredCanvas.render();
+}
+
+const sepia = function(){
+    let canvas = document.getElementById('image-area');
+    let ctx = canvas.getContext('2d');
+    ctx.filter = 'sepia(100%)';
+    myLayeredCanvas.render();
+}
+
+const contrast = function(){
+    let canvas = document.getElementById('image-area');
+    let ctx = canvas.getContext('2d');
+    ctx.filter = 'contrast(100%)';
+    myLayeredCanvas.render();
+
+}
+
+const saturate = function(){
+    let canvas = document.getElementById('image-area');
+    let ctx = canvas.getContext('2d');
+    ctx.filter = 'saturate(100%)';
+    myLayeredCanvas.render();
 }
 
 const drawR = function(){
@@ -101,9 +159,9 @@ const drawR = function(){
 }
 
 const drawMoustache = function(){
-    myLayeredCanvas.removeLayer("mustache");
+    myLayeredCanvas.removeLayer("moustache");
     myLayeredCanvas.addLayer( 
-        { id: 'mustache',
+        { id: 'moustache',
           render: function(canvas, ctx){
               ctx.fillStyle = "#E5E059";
             //   ctx.fillRect(nosePos.noseTipBottom.x-50, nosePos.noseTipBottom.y, 100, 15);
@@ -119,12 +177,42 @@ const drawEyeBrows = function(){
         { id: 'eyebrows',
           render: function(canvas, ctx){
               ctx.fillStyle = "#E5E059";
-              ctx.fillRect(eyeBrowL.leftEyeBrowInnerRight.x-face.width*.15, eyeBrowL.leftEyeBrowInnerRight.y-10, face.width * .20 , face.height * .09);
-              ctx.fillRect(eyeBrowR.rightEyeBrowInnerLeft.x, eyeBrowR.rightEyeBrowInnerLeft.y-10, face.width * .2, face.height * .09);
+              ctx.fillRect(eyeBrowL.leftEyeBrowInnerRight.x-face.width*.15, eyeBrowL.leftEyeBrowInnerRight.y-10, face.width * .20 , face.height * .05);
+              ctx.fillRect(eyeBrowR.rightEyeBrowInnerLeft.x, eyeBrowR.rightEyeBrowInnerLeft.y-10, face.width * .2, face.height * .05);
           }
     })
     myLayeredCanvas.render();
 }
+
+const drawNoseItem = function(){
+    myLayeredCanvas.removeLayer("nose");
+    myLayeredCanvas.addLayer( 
+        { id: 'nose',
+          render: function(canvas, ctx){
+              ctx.fillStyle = "#E5E059";
+              //ctx.fillRect(noseTipTop.noseTipTop.x-10, noseTipTop.noseTipTop.y, face.width * .03 , face.height * .03);
+              ctx.beginPath();
+              ctx.arc(noseTipTop.noseTipTop.x-5,noseTipTop.noseTipTop.y,face.width * .05 ,0,2*Math.PI);
+              ctx.stroke();
+              ctx.fill();
+          }
+    })
+    myLayeredCanvas.render();
+}
+
+const drawGlasses = function(){
+    myLayeredCanvas.removeLayer("glasses");
+    myLayeredCanvas.addLayer( 
+        { id: 'glasses',
+          render: function(canvas, ctx){
+              ctx.fillStyle = "#E5E059";
+              ctx.drawImage(glassesImage, noseBetweenEyes.noseBetweenEyes.x - face.width * .27, noseBetweenEyes.noseBetweenEyes.y - face.height * .08 , face.width * .55 , face.height * .20);
+          }
+    })
+    myLayeredCanvas.render();
+}
+
+
 
 const drawBeard = function(){
     myLayeredCanvas.removeLayer("beard");
@@ -139,12 +227,23 @@ const drawBeard = function(){
     myLayeredCanvas.render();
 }
 
+const clearAll = function(){
+    myLayeredCanvas.removeLayer("moustache");
+    myLayeredCanvas.removeLayer("eyebrows");
+    myLayeredCanvas.removeLayer("beard");
+    myLayeredCanvas.removeLayer("hat");
+    myLayeredCanvas.removeLayer("glasses");
+    myLayeredCanvas.removeLayer("nose");
+    myLayeredCanvas.render();
+}
 const drawAll = function(){
     drawMoustache();
     drawEyeBrows();
     drawBeard();
     drawHat();
-
+    drawGlasses();
+    drawNoseItem();
+    myLayeredCanvas.render();
 }
 
 const drawHat = function(){
