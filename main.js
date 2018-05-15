@@ -1,8 +1,8 @@
 let image  = "";
 let image2 = "https://media.npr.org/assets/img/2014/10/30/ts_photo_pr0500_0878_hirescrop-copy-97a9f606ce59a8f05c0ab40eda3ce85726c00ab2-s900-c85.jpg";
 let image3 = "https://www.thewrap.com/wp-content/uploads/2017/09/GeorgeClooney1.jpg";
+let image4 = "https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/24774761_1724922097558404_117716619849696876_n.jpg";
 let image5= "http://news.mit.edu/sites/mit.edu.newsoffice/files/styles/news_article_image_top_slideshow/public/images/2018/MIT-Schmidt-Fellow_0.jpg";
-let image6 = "https://pbs.twimg.com/profile_images/938641147055894529/bj6U4rvg.jpg";
 let height = 0;
 let width = 0;
 
@@ -266,14 +266,12 @@ const drawHat = function(){
 $(document).ready( function() {
     $( 'input' ).change( function() {
         $( 'input' ).each( function() {
-            if(myCanvas !== -1){
             var layerName = $(this).attr( 'id' );
             var thisLayer = myCanvas.getLayer( layerName );
             if ( $(this).prop( 'checked' ) ) {
                 thisLayer.show = true;
             } else {
                 thisLayer.show = false;
-            }
             }
         });
     });
@@ -307,5 +305,5 @@ $(document).on("click", "#theme1", function(){
 })
 
 $(document).on("click", "#theme2", function(){
-    clearAll();
+    All();
 })
