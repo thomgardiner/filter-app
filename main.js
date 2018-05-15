@@ -52,6 +52,7 @@ let posy = 0;
 const call = function(){
     image = userImage;
     canvasImage.src = userImage;
+    $("#image-area").remove();
 
     var headers = {
         "Content-type"    : "application/json",
