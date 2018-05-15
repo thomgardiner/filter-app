@@ -18,7 +18,7 @@ let beardBank = [{name: "goatee",
 let userImage = "";
 
 let canvasImage = new Image();
-canvasImage.src = image3;
+canvasImage.src = image;
 
 let moustacheImage = new Image();
 moustacheImage.src = "moustache.png";
@@ -56,7 +56,7 @@ const call = function(){
         "app_key"         : "205f9b7807db5aa99dfb98a98fb886aa"
     };
 
-    var url = "https://api.kairos.com/v2/media?source=" + image3 + "&landmarks=1";
+    var url = "https://api.kairos.com/v2/media?source=" + image + "&landmarks=1";
     // make request
     $.ajax(url, {
         headers  : headers,
@@ -74,7 +74,7 @@ const call = function(){
         bottomLip = response.frames[0].people[0].landmarks[38];//lowerLipBottomCenter
         noseTipTop = response.frames[0].people[0].landmarks[11];//noseTipTop
         noseBetweenEyes = response.frames[0].people[0].landmarks[8];//noseBetweenEyes;
-        
+
         console.log(response);
         console.log(response.frames[0].people[0]);
         console.log("the image size is " + height + " " + width);
