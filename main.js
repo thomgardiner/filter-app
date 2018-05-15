@@ -294,6 +294,7 @@ $(document).on("click", "#normal", function(){
 })
 
 $(document).on("click", "#submit", function(){
+    event.preventDefault()
     console.log("hey");
     userImage = $("#inputURL").val();
     call();
