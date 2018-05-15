@@ -50,10 +50,9 @@ let posy = 0;
 
 
 const call = function(){
+    $("#image-area").remove();
     image = userImage;
     canvasImage.src = userImage;
-    $("#image-area").remove();
-
     var headers = {
         "Content-type"    : "application/json",
         "app_id"          : "ce71ec90",
@@ -267,12 +266,14 @@ const drawHat = function(){
 $(document).ready( function() {
     $( 'input' ).change( function() {
         $( 'input' ).each( function() {
+            if(myCanvas !== -1){
             var layerName = $(this).attr( 'id' );
             var thisLayer = myCanvas.getLayer( layerName );
             if ( $(this).prop( 'checked' ) ) {
                 thisLayer.show = true;
             } else {
                 thisLayer.show = false;
+            }
             }
         });
     });
@@ -299,4 +300,12 @@ $(document).on("click", "#submit", function(){
     userImage = $("#inputURL").val();
     call();
     $("#inputURL").val("");
+})
+
+$(document).on("click", "#theme1", function(){
+    drawAll();
+})
+
+$(document).on("click", "#theme2", function(){
+    clearAll();
 })
