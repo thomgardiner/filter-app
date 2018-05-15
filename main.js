@@ -1,4 +1,4 @@
-let image  = "http://i0.kym-cdn.com/photos/images/original/000/855/203/b60.png";
+let image  = "";
 let image2 = "https://media.npr.org/assets/img/2014/10/30/ts_photo_pr0500_0878_hirescrop-copy-97a9f606ce59a8f05c0ab40eda3ce85726c00ab2-s900-c85.jpg";
 let image3 = "https://www.thewrap.com/wp-content/uploads/2017/09/GeorgeClooney1.jpg";
 let image4 = "https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/24774761_1724922097558404_117716619849696876_n.jpg";
@@ -6,6 +6,8 @@ let image5= "http://news.mit.edu/sites/mit.edu.newsoffice/files/styles/news_arti
 let height = 0;
 let width = 0;
 
+
+let userImage = "";
 
 let hatBank = [{name: "tophat",
                src: "hat.png"}]
@@ -15,7 +17,6 @@ let moustacheBank = [{name: "pencil-stache",
                       src: "moustache.png"}];
 let beardBank = [{name: "goatee",
                   src: "beard.png"}];
-let userImage = "";
 
 let canvasImage = new Image();
 canvasImage.src = image;
@@ -49,6 +50,8 @@ let posy = 0;
 
 
 const call = function(){
+    image = userImage;
+    canvasImage.src = userImage;
 
     var headers = {
         "Content-type"    : "application/json",
@@ -84,7 +87,7 @@ const call = function(){
         canvas.attr("id", "image-area");
         canvas.attr("height", height);
         canvas.attr("width", width);
-        $(".container").append(canvas);
+        $("#photo-container").append(canvas);
         myLayeredCanvas = new layeredCanvas("image-area");
         render();
     });
@@ -274,3 +277,25 @@ $(document).ready( function() {
     });
 });
 
+
+$(document).on('click', "#sepia", function(){
+    console.log("hey");
+    sepia();
+});
+
+$(document).on("click", "#blackWhite", function(){
+    console.log("hey");
+    grayScale();
+});
+
+$(document).on("click", "#normal", function(){
+    console.log("hey'");
+    saturate();
+})
+
+$(document).on("click", "#submit", function(){
+    console.log("hey");
+    userImage = $("#inputURL").val();
+    call();
+    $("#inputURL").val("");
+})

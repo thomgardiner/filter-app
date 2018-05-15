@@ -37,3 +37,7 @@ body{
 button{
     font-family: 'Gloria Hallelujah';
 }
+
+#image-area{
+    margin-left: 20%;
+}
