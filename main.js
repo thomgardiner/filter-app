@@ -9,29 +9,26 @@ let width = 0;
 
 let userImage = "";
 
-let hatBank = [{name: "tophat",
-               src: "hat.png"}]
-let eyebrowBank = [{name: "brows",
-                    src: "eyebrows.png"} ];
-let moustacheBank = [{name: "pencil-stache",
-                      src: "moustache.png"}];
-let beardBank = [{name: "goatee",
-                  src: "beard.png"}];
-
 let canvasImage = new Image();
 canvasImage.src = image;
-
 let moustacheImage = new Image();
 moustacheImage.src = "moustache.png";
-
 let beardImage = new Image();
 beardImage.src = "beard.png";
-
 let hatImage = new Image();
 hatImage.src = "hat.png";
-
+let beanieImage = new Image();
+beanieImage.src = "beanie.png";
+let animeHair = new Image();
+animeHair.src = "anime-hair-md.png";
 let glassesImage = new Image();
 glassesImage.src = "glasses.png";
+let rEye = new Image();
+rEye.src = "monocole.png";
+let rEyeA = new Image();
+rEyeA.src = "anime_eye_left.png";
+let lEyeA = new Image();
+lEyeA.src = "anime_eye_right.png";
 
 let layer1 = null;
 let layer2 = null;
@@ -46,6 +43,7 @@ let bottomLip = null;
 let face = null;
 let posx = 0;
 let posy = 0;
+
 
 
 
@@ -77,6 +75,8 @@ const call = function(){
         bottomLip = response.frames[0].people[0].landmarks[38];//lowerLipBottomCenter
         noseTipTop = response.frames[0].people[0].landmarks[11];//noseTipTop
         noseBetweenEyes = response.frames[0].people[0].landmarks[8];//noseBetweenEyes;
+        rightEyeCornerLeft = response.frames[0].people[0].landmarks[23];//rightEyeCornerLeft;
+        leftEyeCornerRight = response.frames[0].people[0].landmarks[20]; //leftEyeCornerRight;
 
         console.log(response);
         console.log(response.frames[0].people[0]);
@@ -92,7 +92,6 @@ const call = function(){
         render();
     });
  }
-
 
 
 
@@ -168,7 +167,7 @@ const drawMoustache = function(){
           render: function(canvas, ctx){
               ctx.fillStyle = "#E5E059";
             //   ctx.fillRect(nosePos.noseTipBottom.x-50, nosePos.noseTipBottom.y, 100, 15);
-              ctx.drawImage(moustacheImage, nosePos.noseTipBottom.x-50, nosePos.noseTipBottom.y, 100, 15);
+              ctx.drawImage(moustacheImage, nosePos.noseTipBottom.x - face.width * .22, nosePos.noseTipBottom.y - face.height * .04, face.width * .5, face.height * .15);
           }
     })
     myLayeredCanvas.render();
@@ -179,7 +178,7 @@ const drawEyeBrows = function(){
     myLayeredCanvas.addLayer( 
         { id: 'eyebrows',
           render: function(canvas, ctx){
-              ctx.fillStyle = "#E5E059";
+              ctx.fillStyle = "#000000";
               ctx.fillRect(eyeBrowL.leftEyeBrowInnerRight.x-face.width*.15, eyeBrowL.leftEyeBrowInnerRight.y-10, face.width * .20 , face.height * .05);
               ctx.fillRect(eyeBrowR.rightEyeBrowInnerLeft.x, eyeBrowR.rightEyeBrowInnerLeft.y-10, face.width * .2, face.height * .05);
           }
@@ -195,7 +194,7 @@ const drawNoseItem = function(){
               ctx.fillStyle = "#E5E059";
               //ctx.fillRect(noseTipTop.noseTipTop.x-10, noseTipTop.noseTipTop.y, face.width * .03 , face.height * .03);
               ctx.beginPath();
-              ctx.arc(noseTipTop.noseTipTop.x-5,noseTipTop.noseTipTop.y,face.width * .05 ,0,2*Math.PI);
+              ctx.arc(noseTipTop.noseTipTop.x-5,noseTipTop.noseTipTop.y,face.width * .05 ,0,3*Math.PI);
               ctx.stroke();
               ctx.fill();
           }
@@ -237,6 +236,7 @@ const clearAll = function(){
     myLayeredCanvas.removeLayer("hat");
     myLayeredCanvas.removeLayer("glasses");
     myLayeredCanvas.removeLayer("nose");
+    myLayeredCanvas.removeLayer("rightEye");
     myLayeredCanvas.render();
 }
 const drawAll = function(){
@@ -255,27 +255,99 @@ const drawHat = function(){
         { id: 'hat',
           render: function(canvas, ctx){
               ctx.fillStyle = "#E5E059";
-              ctx.drawImage(hatImage, face.x, face.y - face.height * .50 , face.width * .75 , face.height * .75);
+              ctx.drawImage(hatImage, face.x - face.width * .05 , face.y - face.height * .40 , face.width * 1.3 , face.height * .75);
           }
     })
     myLayeredCanvas.render();
 }
 
+const drawBeanie = function(){
+    myLayeredCanvas.removeLayer("hat");
+    myLayeredCanvas.addLayer( 
+        { id: 'hat',
+          render: function(canvas, ctx){
+              ctx.fillStyle = "#E5E059";
+              ctx.drawImage(beanieImage, face.x - face.width * .05 , face.y - face.height * .40 , face.width * 1.3 , face.height * .75);
+          }
+    })
+    myLayeredCanvas.render();
+}
+
+const drawAnimeHair = function(){
+    myLayeredCanvas.removeLayer("hat");
+    myLayeredCanvas.addLayer( 
+        { id: 'hat',
+          render: function(canvas, ctx){
+              ctx.fillStyle = "#E5E059";
+              ctx.drawImage(animeHair, face.x - face.width * .05 , face.y - face.height * .15 , face.width * 1.23 , face.height * .75);
+          }
+    })
+    myLayeredCanvas.render();
+}
+
+const drawMonocole = function(){
+    myLayeredCanvas.removeLayer("rightEye");
+    myLayeredCanvas.addLayer( 
+        { id: 'rightEye',
+          render: function(canvas, ctx){
+              ctx.drawImage(rEye, rightEyeCornerLeft.rightEyeCornerLeft.x - face.width * .20, rightEyeCornerLeft.rightEyeCornerLeft.y-face.height * .18, face.width * .7 , face.height * .5);
+          }
+    })
+    myLayeredCanvas.render();
+}
+
+const drawAnimeEyes = function(){
+    myLayeredCanvas.removeLayer("rightEye");
+    myLayeredCanvas.addLayer( 
+        { id: 'rightEye',
+          render: function(canvas, ctx){
+              ctx.drawImage(lEyeA, rightEyeCornerLeft.rightEyeCornerLeft.x - face.width * .04, rightEyeCornerLeft.rightEyeCornerLeft.y-face.height * .15, face.width * .2 , face.height * .22);
+              ctx.drawImage(rEyeA, leftEyeCornerRight.leftEyeCornerRight.x - face.width * .18, leftEyeCornerRight.leftEyeCornerRight.y-face.height * .15, face.width * .23 , face.height * .22);
+          }
+    })
+    myLayeredCanvas.render();
+}
+
+const drawMonopoly = function(){
+clearAll();
+drawMoustache();
+drawBeard();
+drawHat();
+drawEyeBrows();
+drawMonocole();
+myLayeredCanvas.render();
+}
+
+const drawHipster = function(){
+clearAll();
+drawMoustache();
+drawEyeBrows();
+drawGlasses();
+drawBeanie();
+myLayeredCanvas.render();
+}
+
+const drawAnime = function(){
+clearAll();
+drawAnimeHair();
+drawAnimeEyes();
+myLayeredCanvas.render();
+}
 
 
-$(document).ready( function() {
-    $( 'input' ).change( function() {
-        $( 'input' ).each( function() {
-            var layerName = $(this).attr( 'id' );
-            var thisLayer = myCanvas.getLayer( layerName );
-            if ( $(this).prop( 'checked' ) ) {
-                thisLayer.show = true;
-            } else {
-                thisLayer.show = false;
-            }
-        });
-    });
-});
+// $(document).ready( function() {
+//     $( 'input' ).change( function() {
+//         $( 'input' ).each( function() {
+//             var layerName = $(this).attr( 'id' );
+//             var thisLayer = myCanvas.getLayer( layerName );
+//             if ( $(this).prop( 'checked' ) ) {
+//                 thisLayer.show = true;
+//             } else {
+//                 thisLayer.show = false;
+//             }
+//         });
+//     });
+// });
 
 
 $(document).on('click', "#sepia", function(){
@@ -301,9 +373,16 @@ $(document).on("click", "#submit", function(){
 })
 
 $(document).on("click", "#theme1", function(){
-    drawAll();
+    clearAll();
+    drawMonopoly();
 })
 
 $(document).on("click", "#theme2", function(){
-    All();
+    clearAll();
+    drawHipster();
+})
+
+$(document).on("click", "#theme3", function(){
+    clearAll();
+    drawAnime();
 })
