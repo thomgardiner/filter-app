@@ -6,6 +6,7 @@ let image5= "http://news.mit.edu/sites/mit.edu.newsoffice/files/styles/news_arti
 let height = 0;
 let width = 0;
 
+let currentTheme = null;
 
 let userImage = "";
 
@@ -43,9 +44,6 @@ let bottomLip = null;
 let face = null;
 let posx = 0;
 let posy = 0;
-
-
-
 
 const call = function(){
     $("#image-area").remove();
@@ -302,7 +300,7 @@ const drawAnimeEyes = function(){
         { id: 'rightEye',
           render: function(canvas, ctx){
               ctx.drawImage(lEyeA, rightEyeCornerLeft.rightEyeCornerLeft.x - face.width * .04, rightEyeCornerLeft.rightEyeCornerLeft.y-face.height * .15, face.width * .2 , face.height * .22);
-              ctx.drawImage(rEyeA, leftEyeCornerRight.leftEyeCornerRight.x - face.width * .18, leftEyeCornerRight.leftEyeCornerRight.y-face.height * .15, face.width * .23 , face.height * .22);
+              ctx.drawImage(rEyeA, leftEyeCornerRight.leftEyeCornerRight.x - face.width * .19, leftEyeCornerRight.leftEyeCornerRight.y-face.height * .15, face.width * .23 , face.height * .22);
           }
     })
     myLayeredCanvas.render();
@@ -310,6 +308,7 @@ const drawAnimeEyes = function(){
 
 const drawMonopoly = function(){
 clearAll();
+currentTheme = "monopoly";
 drawMoustache();
 drawBeard();
 drawHat();
@@ -320,6 +319,7 @@ myLayeredCanvas.render();
 
 const drawHipster = function(){
 clearAll();
+currentTheme = "hipster";
 drawMoustache();
 drawEyeBrows();
 drawGlasses();
@@ -329,6 +329,7 @@ myLayeredCanvas.render();
 
 const drawAnime = function(){
 clearAll();
+currentTheme = "anime";
 drawAnimeHair();
 drawAnimeEyes();
 myLayeredCanvas.render();
@@ -375,14 +376,47 @@ $(document).on("click", "#submit", function(){
 $(document).on("click", "#theme1", function(){
     clearAll();
     drawMonopoly();
+
 })
 
 $(document).on("click", "#theme2", function(){
     clearAll();
     drawHipster();
+
 })
 
 $(document).on("click", "#theme3", function(){
     clearAll();
     drawAnime();
+
+})
+
+$(document).on("click", "#next", function(){
+    if(currentTheme == null){
+
+    }
+    else if(currentTheme == "monopoly"){
+        drawHipster();
+    }
+    else if(currentTheme == "hipster"){
+        drawAnime();
+    }
+    else if(currentTheme == "anime"){
+        drawMonopoly();
+    }
+})
+
+$(document).on("click", "#previous", function(){
+    if(currentTheme == null){
+        
+    }
+    else if(currentTheme == "monopoly"){
+        drawAnime();
+    }
+    else if(currentTheme == "hipster"){
+        drawMonopoly();
+    }
+    else if(currentTheme == "anime"){
+        drawHipster();
+    }
 })
