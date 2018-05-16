@@ -1,14 +1,8 @@
 let image  = "";
-let image2 = "https://media.npr.org/assets/img/2014/10/30/ts_photo_pr0500_0878_hirescrop-copy-97a9f606ce59a8f05c0ab40eda3ce85726c00ab2-s900-c85.jpg";
-let image3 = "https://www.thewrap.com/wp-content/uploads/2017/09/GeorgeClooney1.jpg";
-let image4 = "https://scontent-ort2-2.xx.fbcdn.net/v/t1.0-1/24774761_1724922097558404_117716619849696876_n.jpg";
-let image5= "http://news.mit.edu/sites/mit.edu.newsoffice/files/styles/news_article_image_top_slideshow/public/images/2018/MIT-Schmidt-Fellow_0.jpg";
 let height = 0;
 let width = 0;
-
-let currentTheme = null;
-
 let userImage = "";
+let currentTheme = null;
 
 let canvasImage = new Image();
 canvasImage.src = image;
@@ -30,10 +24,8 @@ let rEyeA = new Image();
 rEyeA.src = "images/anime_eye_left.png";
 let lEyeA = new Image();
 lEyeA.src = "images/anime_eye_right.png";
-
 let eyebrowL = new Image();
 eyebrowL.src = "images/eyebrowL.png"
-
 let eyebrowR = new Image();
 eyebrowR.src = "images/eyebrowR.png"
 
@@ -41,7 +33,6 @@ eyebrowR.src = "images/eyebrowR.png"
 let layer1 = null;
 let layer2 = null;
 let myLayeredCanvas = null;
-
 let nosePos = null;
 let noseTipTop = null;
 let noseBridge = null;
@@ -51,6 +42,8 @@ let bottomLip = null;
 let face = null;
 let posx = 0;
 let posy = 0;
+
+//API Call
 
 const call = function(){
     $("#image-area").remove();
@@ -71,6 +64,8 @@ const call = function(){
         dataType: "text"
     }).done(function(response){
         response = JSON.parse(response);
+
+        //populate coordinate variables
         height = response.media_info.height;
         width = response.media_info.width;
         face = response.frames[0].people[0].face;
@@ -83,11 +78,11 @@ const call = function(){
         rightEyeCornerLeft = response.frames[0].people[0].landmarks[23];//rightEyeCornerLeft;
         leftEyeCornerRight = response.frames[0].people[0].landmarks[20]; //leftEyeCornerRight;
 
-        console.log(response);
-        console.log(response.frames[0].people[0]);
-        console.log("the image size is " + height + " " + width);
+        // console.log(response);
+        // console.log(response.frames[0].people[0]);
+        // console.log("the image size is " + height + " " + width);
 
-        // $(".container").append();
+        //create canvas and draw image
         let canvas = $("<canvas>");
         canvas.attr("id", "image-area");
         canvas.attr("height", height);
@@ -130,6 +125,8 @@ const draw = function(){
     ctx.drawImage(canvasImage, 0, 0, width, height);
 }
 
+//image color filters
+
 const grayScale = function(){
     let canvas = document.getElementById('image-area');
     let ctx = canvas.getContext('2d');
@@ -159,11 +156,15 @@ const saturate = function(){
     myLayeredCanvas.render();
 }
 
+//test draw function
 const drawR = function(){
     let canvas = document.getElementById('drawing-area');
     let ctx2 = canvas.getContext('2d');
     ctx2.strokeRect(posx,posy,100,100);
 }
+
+
+//draw objects functions
 
 const drawMoustache = function(){
     myLayeredCanvas.removeLayer("moustache");
@@ -233,25 +234,6 @@ const drawBeard = function(){
     myLayeredCanvas.render();
 }
 
-const clearAll = function(){
-    myLayeredCanvas.removeLayer("moustache");
-    myLayeredCanvas.removeLayer("eyebrows");
-    myLayeredCanvas.removeLayer("beard");
-    myLayeredCanvas.removeLayer("hat");
-    myLayeredCanvas.removeLayer("glasses");
-    myLayeredCanvas.removeLayer("nose");
-    myLayeredCanvas.removeLayer("rightEye");
-    myLayeredCanvas.render();
-}
-const drawAll = function(){
-    drawMoustache();
-    drawEyeBrows();
-    drawBeard();
-    drawHat();
-    drawGlasses();
-    drawNoseItem();
-    myLayeredCanvas.render();
-}
 
 const drawHat = function(){
     myLayeredCanvas.removeLayer("hat");
@@ -312,6 +294,31 @@ const drawAnimeEyes = function(){
     myLayeredCanvas.render();
 }
 
+//clear function and test all function
+
+const clearAll = function(){
+    myLayeredCanvas.removeLayer("moustache");
+    myLayeredCanvas.removeLayer("eyebrows");
+    myLayeredCanvas.removeLayer("beard");
+    myLayeredCanvas.removeLayer("hat");
+    myLayeredCanvas.removeLayer("glasses");
+    myLayeredCanvas.removeLayer("nose");
+    myLayeredCanvas.removeLayer("rightEye");
+    myLayeredCanvas.render();
+}
+const drawAll = function(){
+    drawMoustache();
+    drawEyeBrows();
+    drawBeard();
+    drawHat();
+    drawGlasses();
+    drawNoseItem();
+    myLayeredCanvas.render();
+}
+
+
+
+//themes
 const drawMonopoly = function(){
 clearAll();
 currentTheme = "monopoly";
@@ -342,20 +349,7 @@ myLayeredCanvas.render();
 }
 
 
-// $(document).ready( function() {
-//     $( 'input' ).change( function() {
-//         $( 'input' ).each( function() {
-//             var layerName = $(this).attr( 'id' );
-//             var thisLayer = myCanvas.getLayer( layerName );
-//             if ( $(this).prop( 'checked' ) ) {
-//                 thisLayer.show = true;
-//             } else {
-//                 thisLayer.show = false;
-//             }
-//         });
-//     });
-// });
-
+//button logic
 
 $(document).on('click', "#sepia", function(){
     console.log("hey");
