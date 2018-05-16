@@ -31,6 +31,13 @@ rEyeA.src = "anime_eye_left.png";
 let lEyeA = new Image();
 lEyeA.src = "anime_eye_right.png";
 
+let eyebrowL = new Image();
+eyebrowL.src = "eyebrowL.png"
+
+let eyebrowR = new Image();
+eyebrowR.src = "eyebrowR.png"
+
+
 let layer1 = null;
 let layer2 = null;
 let myLayeredCanvas = null;
@@ -176,9 +183,8 @@ const drawEyeBrows = function(){
     myLayeredCanvas.addLayer( 
         { id: 'eyebrows',
           render: function(canvas, ctx){
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(eyeBrowL.leftEyeBrowInnerRight.x-face.width*.15, eyeBrowL.leftEyeBrowInnerRight.y-10, face.width * .20 , face.height * .05);
-              ctx.fillRect(eyeBrowR.rightEyeBrowInnerLeft.x, eyeBrowR.rightEyeBrowInnerLeft.y-10, face.width * .2, face.height * .05);
+              ctx.drawImage(eyebrowL, eyeBrowL.leftEyeBrowInnerRight.x-face.width*.15, eyeBrowL.leftEyeBrowInnerRight.y-10, face.width * .20 , face.height * .05);
+              ctx.drawImage(eyebrowR, eyeBrowR.rightEyeBrowInnerLeft.x, eyeBrowR.rightEyeBrowInnerLeft.y-10, face.width * .2, face.height * .05);
           }
     })
     myLayeredCanvas.render();
