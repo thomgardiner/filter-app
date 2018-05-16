@@ -13,29 +13,29 @@ let userImage = "";
 let canvasImage = new Image();
 canvasImage.src = image;
 let moustacheImage = new Image();
-moustacheImage.src = "moustache.png";
+moustacheImage.src = "images/moustache.png";
 let beardImage = new Image();
-beardImage.src = "beard.png";
+beardImage.src = "images/beard.png";
 let hatImage = new Image();
-hatImage.src = "hat.png";
+hatImage.src = "images/hat.png";
 let beanieImage = new Image();
-beanieImage.src = "beanie.png";
+beanieImage.src = "images/beanie.png";
 let animeHair = new Image();
-animeHair.src = "anime-hair-md.png";
+animeHair.src = "images/anime-hair-md.png";
 let glassesImage = new Image();
-glassesImage.src = "glasses.png";
+glassesImage.src = "images/glasses.png";
 let rEye = new Image();
-rEye.src = "monocole.png";
+rEye.src = "images/monocole.png";
 let rEyeA = new Image();
-rEyeA.src = "anime_eye_left.png";
+rEyeA.src = "images/anime_eye_left.png";
 let lEyeA = new Image();
-lEyeA.src = "anime_eye_right.png";
+lEyeA.src = "images/anime_eye_right.png";
 
 let eyebrowL = new Image();
-eyebrowL.src = "eyebrowL.png"
+eyebrowL.src = "images/eyebrowL.png"
 
 let eyebrowR = new Image();
-eyebrowR.src = "eyebrowR.png"
+eyebrowR.src = "images/eyebrowR.png"
 
 
 let layer1 = null;
