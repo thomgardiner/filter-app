@@ -1,4 +1,4 @@
-# filter-app
+# Filter App
 
 ![Filter App](https://github.com/thomgardiner/filter-app/blob/master/animeeyes.png?raw=true)
 
