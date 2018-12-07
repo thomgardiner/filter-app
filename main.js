@@ -65,6 +65,10 @@ const call = function(){
     }).done(function(response){
         response = JSON.parse(response);
 
+        console.log("hmm");
+
+        console.log(response);
+
         //populate coordinate variables
         height = response.media_info.height;
         width = response.media_info.width;

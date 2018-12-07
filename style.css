@@ -14,12 +14,10 @@
 
 h1{
     text-align:center;
-    font-family: 'Gloria Hallelujah';
     font-size:18px;
 }
 p{
     text-align:center;
-    font-family: 'Gamja Flower';
     font-size: 40px;
 }
 .jumbotron{
@@ -29,13 +27,23 @@ p{
 
 }
 
+.instructions{
+    text-align: center;
+    width: 30%;
+    margin: auto;
+
+}
+
+#bold{
+    font-weight: bold;
+}
+
 body{
     background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOvnoanODkYlK75rpBcXOGPtCgG4bQmkEfDQBHssX95srCUoX7");
     background-size: cover;
 }
 
 button{
-    font-family: 'Gloria Hallelujah';
 }
 
 #image-area{
