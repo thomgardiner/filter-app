@@ -61,13 +61,9 @@ const call = function(){
         headers  : headers,
         type: "POST",
         data: JSON.stringify(image),
-        dataType: "text"
+        dataType: "text",
     }).done(function(response){
         response = JSON.parse(response);
-
-        console.log("hmm");
-
-        console.log(response);
 
         //populate coordinate variables
         height = response.media_info.height;
@@ -81,12 +77,7 @@ const call = function(){
         noseBetweenEyes = response.frames[0].people[0].landmarks[8];//noseBetweenEyes;
         rightEyeCornerLeft = response.frames[0].people[0].landmarks[23];//rightEyeCornerLeft;
         leftEyeCornerRight = response.frames[0].people[0].landmarks[20]; //leftEyeCornerRight;
-
-        // console.log(response);
-        // console.log(response.frames[0].people[0]);
-        // console.log("the image size is " + height + " " + width);
-
-        //create canvas and draw image
+        
         let canvas = $("<canvas>");
         canvas.attr("id", "image-area");
         canvas.attr("height", height);
